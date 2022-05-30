@@ -1,0 +1,3 @@
+[submodule "tools/AiThinker-Open-Ra-08"]
+	path = tools/toolchain
+	url = https://e.coding.net/axk/AiThinker-Open/AiThinker-Open-Ra-08.git

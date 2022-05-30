@@ -1,0 +1,81 @@
+固件版本更新说明(多个工程项目在一起的)
+
+
+​LoRaWAN AT指令工程 projects/ASR6601CB-EVAL/examples/lorawan/lorawan_at/
+	这个是LoRaWAN AT指令应用固件，需要配合 bootloader 使用
+	v1.3.4
+		修改AT+CGMR?指令响应
+	v1.3.3
+		修改启动log，删除MAC显示(ASR6601没有MAC地址)
+	v1.3.2
+		将射频开关双控的GPIO改为GPIO10(PA10)
+	v1.3.1
+		1.将射频开关改为双控的，使用ANT_SW_CTRL和IO47(C15控制)
+	v1.3.0
+		1.添加OTA升级功能(APP启动地址修改为0x08008000注意默认demo是0x0800D000)
+		2.修复入网前功耗过高问题
+		3.添加以下combo AT指令(用法参考combo AT指令集)
+			AT+SYSGPIOWRITE
+			AT+SYSGPIOREAD
+			AT+NodeMCUTEST
+			AT+LEDTEST
+	v1.2.1
+		1.基于ASR6601 的v1.5.0版本SDK的lorawan_at(v1.2.0)demo编译的固件
+		2.固件添加了aithinker启动信息
+		3.添加了多地区编译脚本
+
+开发板按键闪灯demo projects/ASR6601CB-EVAL/examples/lora/Ra-08-kit-LoraTest
+	开发板测试固件，按键后对测LED会交替点亮(单LoRa通信，不带协议)
+	v0.0.0
+		初版，实现了Ra-08开发板按键LED交替闪灯
+
+产测使用的工程 projects/ASR6601CB-EVAL/examples/lora/lora_factory_test/
+	产测使用的固件
+	v0.0.4
+		产测固件添加发送RSSI偏移设置，实现公差补偿
+	v0.0.3
+		将射频开关双控的GPIO改为GPIO10(PA10)
+	v0.0.2
+		1.将射频开关改为双控的，使用ANT_SW_CTRL和IO47(C15控制)
+	v0.0.1
+		1.取消了LPuart的GPIO检测(底板的LPRx和logRx是串联的，检测会出错)
+	v0.0.0
+		初版产测固件
+
+​定频测试使用的 projects/ASR6601CB-EVAL/examples/lora/lora_test/
+	定频测试固件
+	v0.0.4
+		定频固件添加在收到数据的时候红蓝灯(PA5/PA6)交替闪烁提示
+	v0.0.3
+		将射频开关双控的GPIO改为GPIO10(PA10)
+	v0.0.2
+		1.AT+CTXCW 指令添加RF双控
+	v0.0.1
+		1.将射频开关改为双控的，使用ANT_SW_CTRL和IO47(C15控制)
+		2.启动log添加提示
+	原始SDK1.5.0
+		没有修改的状态
+
+​OTA升级发射端程序 projects/ASR6601CB-EVAL/examples/ota/dongle/ (这个因为没有log所以没有打印版本,由commit管理)
+	a67efa4b78111be202cf873bb2e9d83b8935c87f	(dongle_20220120.bin)
+		将射频开关双控的GPIO改为GPIO10(PA10)
+	1187dbfbb08f6c3f3d598c9014e9eb59ddffeb3a	(dongle_20211222.bin)
+		1.将射频开关改为双控的，使用ANT_SW_CTRL和IO47(C15控制)
+	1c56233c744a345dc4bce218eccd16614ac9f88f	(dongle_sdk1.5.0.bin)
+		1.添加OTA功能(这个是bootloader+APP实现的)
+		2.同时将app的启动地址从0x0800D000改为0x08008000，给bootloader预留了32K空间(这里注意，bootloader，lorawan_at和手机App端都需要修改)
+	原始SDK
+		APP启动位置默认为0x0800D000，给bootloader预留了52K空间
+
+​OTA升级使用的bootloader工程 projects/ASR6601CB-EVAL/examples/ota/bootloader/ (添加OTA的时候没有版本控制，使用commit管理，后面的有版本控制了)
+	这个需要和应用固件配合使用，这个单独是一个带OTA的bootloader固件
+	v0.0.2
+		将射频开关双控的GPIO改为GPIO10(PA10)
+	v0.0.1	(bootloader_v0.0.1.bin)
+		1.将射频开关改为双控的，使用ANT_SW_CTRL和IO47(C15控制)
+		2.添加启动信息打印
+	1c56233c744a345dc4bce218eccd16614ac9f88f	(bootloader_appaddr_0x08008000.bin)
+		1.添加OTA功能(这个是bootloader+APP实现的)
+		2.同时将app的启动地址从0x0800D000改为0x08008000，给bootloader预留了32K空间(这里注意，bootloader，lorawan_at和手机App端都需要修改)
+	原始SDK
+		APP启动位置默认为0x0800D000，给bootloader预留了52K空间
