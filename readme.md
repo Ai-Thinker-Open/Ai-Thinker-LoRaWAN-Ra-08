@@ -74,7 +74,11 @@ python /mnt/d/GitHub/ASR6601_AT_LoRaWAN/build/scripts/tremo_loader.py -p /dev/tt
 ## 6.2 清空工程编译文件 & 编译烧写 & 下载固件 & 查看 log
 将 USB 线连接好设备和 PC，确保烧写端口正确，并且按照下面操作把模块进去下载模式。
 
-![connect](png\connect.png) 
+
+<p align="center">
+  <img src="png\connect.png" width="480px" height="370px" alt="Banner" />
+</p>
+
 
 先修改默认的连接硬件的端口号、波特率，在文件 ```\build\make\common.mk``` 里面修改：
 
