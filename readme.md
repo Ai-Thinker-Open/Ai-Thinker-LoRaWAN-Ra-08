@@ -4,7 +4,7 @@
 # <span id = "Introduction">0.介绍</span>
 [安信可](https://www.espressif.com/zh-hans)是物联网无线的设计专家，专注于设计简单灵活、易于制造和部署的解决方案。安信可研发和设计 IoT 业内集成度SoC、性能稳定、功耗低的无线系统级模组产品，有 Wi-Fi 、LoRaWAN、蓝牙、UWB 功能的各类模组，模组具备出色的射频性能。
 
-Ra-08(H) 模组是安信可科技与上海翱捷科技（**简称ASR**）深度合作、共同研发的一款 LoRaWAN 模组，本仓库是对应此LoRaWAN模组 SoC 二次开发入门指南，模组对应的芯片型号为**ASR6601SE、 Flash 256 KB 、SRAM  64 KB、内核 32-bit 48 MHz ARM Cortex-M4**。
+Ra-08(H) 模组是安信可科技与上海翱捷科技（**简称ASR**）深度合作、共同研发的一款 LoRaWAN 模组，本仓库是对应此LoRaWAN模组 SoC 二次开发入门指南，模组对应的芯片型号为**ASR6601CB、 Flash 128 KB 、SRAM  16 KB、内核 32-bit 48 MHz ARM Cortex-M4**。
 
 Ra-08(H) 模组出厂内置 AT 固件程序，直接上手使用对接LoRaWAN网关。如需对接 阿里LinkWAN 需编程本仓库代码。
 
