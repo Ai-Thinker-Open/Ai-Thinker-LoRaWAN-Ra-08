@@ -9,6 +9,8 @@ export HOST_ARCH := Cortex-M4F
 
 ifeq ($(shell uname), Linux)
 export EXECUTABLE_SUFFIX :=
+else ifeq ($(shell uname), Darwin)
+export EXECUTABLE_SUFFIX :=
 else
 export EXECUTABLE_SUFFIX := .exe
 endif
