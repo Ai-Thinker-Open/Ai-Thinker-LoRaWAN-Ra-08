@@ -8,8 +8,22 @@
 //LoRaWAN国家设置
 #ifdef REGION_EU868
 	#define LORAWAN_REGION_STR      "EU868"
+#elif defined(REGION_EU433)
+	#define LORAWAN_REGION_STR	"EU433"
+#elif defined(REGION_AU915)
+	#define LORAWAN_REGION_STR	"AU915"
 #elif defined(REGION_US915)
 	#define LORAWAN_REGION_STR	"US915"
+#elif defined(REGION_AS923)
+    #define LORAWAN_REGION_STR  "AS923"
+#elif defined(REGION_CN779)
+    #define LORAWAN_REGION_STR  "CN779"
+#elif defined(REGION_IN865)
+    #define LORAWAN_REGION_STR  "IN865"
+#elif defined(REGION_KR920)
+    #define LORAWAN_REGION_STR  "KR920"
+#elif defined(REGION_US915-Hybrid)
+    #define LORAWAN_REGION_STR  "US915H"
 #else
 	#define LORAWAN_REGION_STR      "CN470"
 #endif
