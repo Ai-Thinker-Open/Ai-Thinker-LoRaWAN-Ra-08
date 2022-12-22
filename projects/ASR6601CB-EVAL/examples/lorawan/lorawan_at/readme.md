@@ -25,7 +25,7 @@ make
 make flash # do not forget to put the board in download mode first
 ```
 
-You can add any future aditional regions by modifying the *Makefile* and *inc/aithinker.code.h* to support them. The additional available bands can be found in [/lora/mac/region](/lora/mac/region/) directory. The modifications would look like this:
+You can add any future aditional regions by modifying the *Makefile* and *inc/aithinker_code.h* to support them. The additional available bands can be found in [/lora/mac/region](/lora/mac/region/) directory. The modifications would look like this:
 
 ```
 else ifeq ($(LoraWanRegionDefine),REGION_XXFFF)
@@ -33,7 +33,7 @@ else ifeq ($(LoraWanRegionDefine),REGION_XXFFF)
         $(PROJECT)_DEFINES := -DCONFIG_DEBUG_UART=UART0 -DREGION_XXFFF -DCONFIG_LWAN -DCONFIG_LWAN_AT -DCONFIG_LOG -DPRINT_BY_DMA
         
 ```
-in Makefile before final else, and in *inc/aithinker.code.h* 
+in Makefile before final else, and in *inc/aithinker_code.h* 
 ```
 #elif defined(REGION_XXFFF)
        #define LORAWAN_REGION_STR      "XXFFF"
