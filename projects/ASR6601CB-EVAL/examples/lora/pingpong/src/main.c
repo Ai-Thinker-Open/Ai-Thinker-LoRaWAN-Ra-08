@@ -53,7 +53,7 @@ int main(void)
 {
     // Target board initialization
     board_init();
-
+    printf("......");
     app_start();
 }
 
