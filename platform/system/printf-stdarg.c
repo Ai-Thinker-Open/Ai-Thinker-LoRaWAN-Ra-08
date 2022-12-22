@@ -32,7 +32,7 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdint-gcc.h>
+#include <stdint.h>
 #include "tremo_uart.h"
 
 #include "tremo_regs.h"
