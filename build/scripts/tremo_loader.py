@@ -1,4 +1,5 @@
 import argparse
+import traceback
 import serial
 import os
 import sys
@@ -226,6 +227,7 @@ def tremo_flash(args):
 
     # flash
     tremo = TremoLoader(args.port)
+
     tremo.connect()
     tremo.set_baudrate(args.baud)
     for address, filename in download_files:
@@ -339,6 +341,7 @@ if __name__ == '__main__':
             sn = tremo_read_sn(args)
             print('The SN is: %s' % binascii.hexlify(sn))
     except Exception as e:
+        traceback.print_exc()
         print(str(e))
 
 
