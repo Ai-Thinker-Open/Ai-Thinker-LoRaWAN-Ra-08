@@ -70,10 +70,6 @@ $(foreach src,$(CXX_SOURCES),$(eval $(call BUILD_CXX_PROCESS,$(PROJECT),$(src)))
 # flash settings
 TREMO_LOADER := $(SCRIPTS_PATH)/tremo_loader.py
 
-ifeq ($(shell uname), Darwin)
-export SERIAL_PORT := /dev/cu.wchusbserial1410
-endif
-
 SERIAL_PORT        ?= /dev/ttyUSB0
 SERIAL_BAUDRATE    ?= 921600
 $(PROJECT)_ADDRESS ?= 0x08000000
