@@ -12,7 +12,7 @@ $(PROJECT)_INC_PATH := inc \
     $(TREMO_SDK_PATH)/platform/common \
     $(TREMO_SDK_PATH)/platform/system \
     $(TREMO_SDK_PATH)/platform/user \
-    $(TREMO_SDK_PATH)/drivers/peripheral/inc 
+    $(TREMO_SDK_PATH)/drivers/peripheral/inc
 
 $(PROJECT)_CFLAGS  := -Wall -Os -ffunction-sections -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -fsingle-precision-constant -std=gnu99 -fno-builtin-printf -fno-builtin-sprintf -fno-builtin-snprintf
 $(PROJECT)_DEFINES := -DCONFIG_DEBUG_UART=UART0 -DUSE_MODEM_LORA -DREGION_CN470

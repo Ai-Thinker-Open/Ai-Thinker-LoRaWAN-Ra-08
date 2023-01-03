@@ -1,3 +1,6 @@
+#ifndef __USER_INIT_H
+#define __USER_INIT_H
+
 
 #include <stdio.h>
 
@@ -17,8 +20,8 @@ void uart_log_init(void)
     uart_config_init(&uart_config);
 
     uart_config.baudrate = UART_BAUDRATE_115200;
-    uart_init(UART0, &uart_config);
-    uart_cmd(UART0, ENABLE);
+    uart_init(CONFIG_DEBUG_UART, &uart_config);
+    uart_cmd(CONFIG_DEBUG_UART, ENABLE);
 }
 
 void board_init(const rcc_peripheral_t *peripheral_array, size_t length)
@@ -28,3 +31,5 @@ void board_init(const rcc_peripheral_t *peripheral_array, size_t length)
         rcc_enable_peripheral_clk(peripheral_array[i], true);
     }
 }
+
+#endif

@@ -12,7 +12,8 @@
 void setup_board()
 {
     const rcc_peripheral_t peripheral_array[] = {
-        RCC_PERIPHERAL_UART0, RCC_PERIPHERAL_GPIOA,
+        RCC_PERIPHERAL_UART0, 
+        RCC_PERIPHERAL_GPIOA,
         RCC_PERIPHERAL_GPIOB};
     board_init(peripheral_array, sizeof(peripheral_array) / sizeof(rcc_peripheral_t));
 }
