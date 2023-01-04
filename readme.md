@@ -10,7 +10,7 @@ Ra-08(H) 模组出厂内置 AT 固件程序，直接上手使用对接LoRaWAN网
 
 # <span id = "aim">1.目的</span>
 本文基于 linux 环境，介绍安信可 Ra-08(H) 模组二次开发点对点通讯的具体流程，供读者参考。
-
+ > macos可编译
 # <span id = "hardwareprepare">2.硬件准备</span>
 - **linux 环境**  
 用来编译 & 烧写 & 运行等操作的必须环境，本文以 （Ubuntu18.04） 为例。 
@@ -119,3 +119,26 @@ Sent: PONG
 Received: PING
 Sent: PONG
 ```
+
+
+# <span id = "makeflash">7. mac编译</span>
+
+### 7.1 安装arm-none-eabi-gcc
+
+首先需要cloneArmMbed仓库，在命令行中执行
+```bash
+brew tap ArmMbed/homebrew-formulae
+```
+然后安装arm-none-eabi-gcc编译链
+```bash
+brew install arm-none-eabi-gcc
+```
+
+### 7.2 安装coreutils
+构建工程makefile中使用了`relativepath`命令，macos中并不支持完整的该命令，需要安装`coreutils`
+
+```bash
+brew install coreutils
+```
+
+后续步骤可参考4、5、6

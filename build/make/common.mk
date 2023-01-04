@@ -9,6 +9,8 @@ export HOST_ARCH := Cortex-M4F
 
 ifeq ($(shell uname), Linux)
 export EXECUTABLE_SUFFIX :=
+else ifeq ($(shell uname), Darwin)
+export EXECUTABLE_SUFFIX :=
 else
 export EXECUTABLE_SUFFIX := .exe
 endif
@@ -67,9 +69,12 @@ $(foreach src,$(CXX_SOURCES),$(eval $(call BUILD_CXX_PROCESS,$(PROJECT),$(src)))
 
 # flash settings
 TREMO_LOADER := $(SCRIPTS_PATH)/tremo_loader.py
+
 SERIAL_PORT        ?= /dev/ttyUSB0
 SERIAL_BAUDRATE    ?= 921600
 $(PROJECT)_ADDRESS ?= 0x08000000
+
+
 
 ##################################################################################################
 ifeq ($(IDE),keil)
