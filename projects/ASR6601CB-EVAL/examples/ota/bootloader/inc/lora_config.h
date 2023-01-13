@@ -13,10 +13,6 @@ extern "C" {
 #define CONFIG_LORA_RFSW_VDD_GPIOX GPIOA
 #define CONFIG_LORA_RFSW_VDD_PIN   GPIO_PIN_10
 
-//OTA bootloader 软件版本
-#define OTA_FIRMWARE_VERSION	"v0.0.2"
-//#define OTA_FIRMWARE_VERSION	"v0.0.2-debug"
-
 #ifdef __cplusplus
 }
 #endif

@@ -1,7 +1,5 @@
 #include "tremo_lpuart.h"
 #include "tremo_it.h"
-#include "tremo_gpio.h"
-#include "stdio.h"
 
 extern void RadioOnDioIrq(void);
 extern void RtcOnIrq(void);
@@ -153,12 +151,3 @@ void DMA1_IRQHandler(void)
 {
     dma1_IRQHandler();
 }
-
-void GPIO_IRQHandler(void)
-{
-    if (gpio_get_interrupt_status(GPIOA, GPIO_PIN_2) == SET) {
-        gpio_clear_interrupt(GPIOA, GPIO_PIN_2);
-        printf("\r\n##boot\r\n");
-    }
-}
-

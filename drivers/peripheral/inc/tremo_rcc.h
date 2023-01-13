@@ -2,8 +2,8 @@
  ******************************************************************************
  * @file    tremo_rcc.h
  * @author  ASR Tremo Team
- * @version v1.5.0
- * @date    2021-06-23
+ * @version v1.6.2
+ * @date    2022-05-28
  * @brief   This file contains all the functions prototypes for the RCC firmware
  *          library.
  * @addtogroup Tremo_Drivers
@@ -28,7 +28,7 @@ extern "C" {
 #define RCC_FREQ_32M      ((uint32_t)32000000)
 #define RCC_FREQ_30M      ((uint32_t)30000000)	
 #define RCC_FREQ_24M      ((uint32_t)24000000)		
-#define RCC_FREQ_4M       ((uint32_t)4000000)	
+#define RCC_FREQ_4M       ((uint32_t)3600000)
 #define RCC_FREQ_32768    ((uint32_t)32768)	
 #define RCC_FREQ_32000    ((uint32_t)32000)
 

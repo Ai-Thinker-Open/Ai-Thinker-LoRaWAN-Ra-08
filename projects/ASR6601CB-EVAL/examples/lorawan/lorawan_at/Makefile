@@ -13,6 +13,7 @@ $(PROJECT)_SOURCE := $(wildcard src/*.c)  \
     $(wildcard $(TREMO_SDK_PATH)/lora/mac/*.c) \
     $(TREMO_SDK_PATH)/lora/mac/region/Region.c \
     $(TREMO_SDK_PATH)/lora/mac/region/RegionCommon.c \
+    $(TREMO_SDK_PATH)/lora/mac/region/RegionCN470.c \
     $(TREMO_SDK_PATH)/lora/linkwan/linkwan.c \
     $(TREMO_SDK_PATH)/lora/linkwan/linkwan_ica_at.c \
     $(TREMO_SDK_PATH)/lora/linkwan/lwan_config.c
@@ -34,18 +35,7 @@ $(PROJECT)_INC_PATH := inc \
     $(TREMO_SDK_PATH)/lora/linkwan/region
 
 $(PROJECT)_CFLAGS  := -Wall -Os -ffunction-sections -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -fsingle-precision-constant -std=gnu99 -fno-builtin-printf -fno-builtin-sprintf -fno-builtin-snprintf
-
-#自己添加的根据 LoraWanRegionDefine 编译不同频段的LoRaWAN
-ifeq ($(LoraWanRegionDefine),REGION_EU868)
-	$(PROJECT)_SOURCE += $(TREMO_SDK_PATH)/lora/mac/region/RegionEU868.c
-	$(PROJECT)_DEFINES := -DCONFIG_DEBUG_UART=UART0 -DREGION_EU868 -DCONFIG_LWAN -DCONFIG_LWAN_AT -DCONFIG_LOG -DPRINT_BY_DMA
-else ifeq ($(LoraWanRegionDefine),REGION_US915)
-	$(PROJECT)_SOURCE += $(TREMO_SDK_PATH)/lora/mac/region/RegionUS915.c
-	$(PROJECT)_DEFINES := -DCONFIG_DEBUG_UART=UART0 -DREGION_US915 -DCONFIG_LWAN -DCONFIG_LWAN_AT -DCONFIG_LOG -DPRINT_BY_DMA
-else
-	$(PROJECT)_SOURCE += $(TREMO_SDK_PATH)/lora/mac/region/RegionCN470.c
-	$(PROJECT)_DEFINES := -DCONFIG_DEBUG_UART=UART0 -DREGION_CN470 -DCONFIG_LWAN -DCONFIG_LWAN_AT -DCONFIG_LOG -DPRINT_BY_DMA
-endif
+$(PROJECT)_DEFINES := -DCONFIG_DEBUG_UART=UART0 -DREGION_CN470 -DCONFIG_LWAN -DCONFIG_LWAN_AT -DCONFIG_LOG -DPRINT_BY_DMA
 
 $(PROJECT)_LDFLAGS := -Wl,--gc-sections -Wl,--wrap=printf -Wl,--wrap=sprintf -Wl,--wrap=snprintf
 

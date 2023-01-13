@@ -2,8 +2,8 @@
  ******************************************************************************
  * @file    tremo_regs.h
  * @author  ASR Tremo Team
- * @version v1.5.0
- * @date    2021-06-23
+ * @version v1.6.2
+ * @date    2022-05-28
  * @brief   Header file of tremo registers.
  * @addtogroup Tremo_Drivers
  * @{
@@ -464,8 +464,8 @@ typedef struct __RTC {
     __IO uint32_t CALENDAR_H;       /*!< time year/month/date*/
     __IO uint32_t CYC_MAX;          /*!< cyc max value*/
     __IO uint32_t SR;               /*!< status register*/
-    __I uint32_t SYN_DATA;          /*!< syncronization time hour/minute/second*/
-    __I uint32_t SYN_DATA_H;        /*!< syncronization time year/month/date*/
+    __I uint32_t ASYN_DATA;         /*!< asynchronization time hour/minute/second*/
+    __I uint32_t ASYN_DATA_H;       /*!< asynchronization time year/month/date*/
     __IO uint32_t CR1;              /*!< control register 1*/
     __IO uint32_t SR1;              /*!< status register 1*/
     __IO uint32_t CR2;              /*!< control register 2*/

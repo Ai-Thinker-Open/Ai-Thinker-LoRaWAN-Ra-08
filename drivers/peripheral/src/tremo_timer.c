@@ -789,8 +789,14 @@ int32_t timer_clear_ocxref(timer_gp_t* TIMERx, timer_clear_ocxref_t* clear_ocxre
  */
 void timer_config_pwm(timer_gp_t* TIMERx, timer_oc_init_t* oc_init, timer_init_t* timerx_init, uint8_t channel)
 {
-    if (((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM1) && ((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM2)) {
-        return;
+    if ((channel == 0) || (channel == 2)) {
+        if (((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM1) && ((oc_init->oc_mode).oc0m_mode != TIMER_OC0M_PWM2)) {
+            return;
+        }
+    } else {
+        if (((oc_init->oc_mode).oc1m_mode != TIMER_OC1M_PWM1) && ((oc_init->oc_mode).oc1m_mode != TIMER_OC1M_PWM2)) {
+            return;
+        }
     }
 
     timer_config_oc(TIMERx, oc_init, channel);

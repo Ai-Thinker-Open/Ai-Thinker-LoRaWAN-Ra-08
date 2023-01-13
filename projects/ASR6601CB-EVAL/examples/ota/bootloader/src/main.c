@@ -5,9 +5,6 @@
 #include "tremo_uart.h"
 #include "tremo_gpio.h"
 #include "tremo_rcc.h"
-#include "lora_config.h"
-
-void RtcInit(void);
 
 void jumpToApp(int addr)
 {
@@ -79,11 +76,7 @@ int main(void)
     rcc_enable_peripheral_clk(RCC_PERIPHERAL_LORA, true);
 
     uart_log_init();
-	printf("\r\n"
-		"----------------------------------------------\r\n"
-		"boot from OTA image\r\n"
-		"version:%s(%s-%s)\r\n"
-		"----------------------------------------------\r\n",OTA_FIRMWARE_VERSION,__DATE__,__TIME__);
+	
     RtcInit();
 
     //init button
@@ -98,20 +91,6 @@ int main(void)
 
         boot_handle_cmd();
     } else {
-		//add by specter 将无用的外设去初始化
-		uart_deinit(CONFIG_DEBUG_UART);
-		gpio_deinit();
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOA, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOB, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOC, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOD, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_UART0, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_SYSCFG, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_SEC, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_CRC, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_RTC, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_SAC, false);
-		rcc_enable_peripheral_clk(RCC_PERIPHERAL_LORA, false);
         //boot to user image
         boot_to_app(APP_START_ADDR);
     }

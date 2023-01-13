@@ -13,10 +13,6 @@ extern "C" {
 #define CONFIG_LORA_RFSW_VDD_GPIOX GPIOA
 #define CONFIG_LORA_RFSW_VDD_PIN   GPIO_PIN_10
 
-//lora定频测试固件版本
-#define LORA_TEST_FIRMWARE_VERSION	"v0.0.4"
-//#define LORA_TEST_FIRMWARE_VERSION	"v0.0.4-debug"
-
 #ifdef __cplusplus
 }
 #endif

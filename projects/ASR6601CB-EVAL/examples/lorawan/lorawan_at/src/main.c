@@ -14,7 +14,6 @@
 #include "linkwan_ica_at.h"
 #include "linkwan.h"
 #include "lwan_config.h"
-#include "aithinker_code.h"	//add by specter
 
 #define LORAWAN_APP_PORT 100
 
@@ -148,7 +147,6 @@ int main(void)
 
     // Target board initialization
     board_init();
-	AithinkerPrintInfo();	//add by specter
 
     lwan_sys_config_init(&default_sys_config);
     lwan_sys_config_get(SYS_CONFIG_BAUDRATE, &baudrate);

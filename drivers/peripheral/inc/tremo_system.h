@@ -2,8 +2,8 @@
  ******************************************************************************
  * @file    tremo_system.h
  * @author  ASR Tremo Team
- * @version v1.5.0
- * @date    2021-06-23
+ * @version v1.6.2
+ * @date    2022-05-28
  * @brief   This file contains the delay functions
  * @addtogroup Tremo_Drivers
  * @{

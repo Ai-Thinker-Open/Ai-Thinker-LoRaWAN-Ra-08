@@ -6,11 +6,9 @@
 #define CM4_IRQ_CLR                 0xE000E180
 
 #define FLASH_START_ADDR            0x08000000
-//#define FLASH_MAX_SIZE              0x40000 //256KB
-#define FLASH_MAX_SIZE              0x20000 //128KB add by specter
+#define FLASH_MAX_SIZE              0x40000 //256KB
 
-//#define APP_START_ADDR              0x0800D000 //OFF-64KB
-#define APP_START_ADDR              0x08008000 //OFF-32KB add by specter
+#define APP_START_ADDR              0x0800D000 //OFF-64KB
 
 #define UART_INDEX                  UART0
 #define UART_GPIOX                  GPIOB

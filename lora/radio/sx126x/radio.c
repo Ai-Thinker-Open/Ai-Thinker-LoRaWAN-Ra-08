@@ -315,12 +315,7 @@ void RadioRxBoosted( uint32_t timeout );
  * \param [in]  sleepTime     Structure describing sleep timeout value
  */
 void RadioSetRxDutyCycle( uint32_t rxTime, uint32_t sleepTime );
-/*!
- * \brief Set synchro word in radio
- *
- * \param [IN] data  THe syncword
- */	
-void  RadioSyncWord( uint8_t data );
+
 /*!
  * Radio driver structure initialization
  */
@@ -347,7 +342,6 @@ const struct Radio_s Radio =
     RadioRead,
     RadioWriteBuffer,
     RadioReadBuffer,
-    RadioSyncWord,
     RadioSetMaxPayloadLength,
     RadioSetPublicNetwork,
     RadioGetWakeupTime,
@@ -1085,10 +1079,6 @@ void RadioWriteBuffer( uint16_t addr, uint8_t *buffer, uint8_t size )
 void RadioReadBuffer( uint16_t addr, uint8_t *buffer, uint8_t size )
 {
     SX126xReadRegisters( addr, buffer, size );
-}
-void RadioSyncWord( uint8_t data )
-{
-    SX126xSetSyncWord(&data);
 }
 
 void RadioWriteFifo( uint8_t *buffer, uint8_t size )

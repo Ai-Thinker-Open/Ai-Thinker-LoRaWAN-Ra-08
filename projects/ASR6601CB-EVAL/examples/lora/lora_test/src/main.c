@@ -9,7 +9,7 @@
 #include "tremo_pwr.h"
 #include "tremo_delay.h"
 #include "rtc-board.h"
-#include "lora_config.h"
+
 
 extern int tc_lora_test(void);
 
@@ -35,7 +35,6 @@ void board_init()
     rcc_enable_peripheral_clk(RCC_PERIPHERAL_UART0, true);
     rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOA, true);
     rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOB, true);
-	rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOC, true);
     rcc_enable_peripheral_clk(RCC_PERIPHERAL_GPIOD, true);
     rcc_enable_peripheral_clk(RCC_PERIPHERAL_PWR, true);
     rcc_enable_peripheral_clk(RCC_PERIPHERAL_RTC, true);
@@ -47,8 +46,6 @@ void board_init()
     uart_log_init();
 
     RtcInit();
-	gpio_set_iomux(GPIOA,GPIO_PIN_6,0);
-	gpio_set_iomux(GPIOA,GPIO_PIN_7,0);
 }
 
 int main(void)
@@ -59,9 +56,7 @@ int main(void)
     printf("\r\n"
             "/*******************************************************************\r\n"
             "********************************************************************\r\n"
-            "*                         ASR6601 LoRa Test                        *\r\n"
-            "*           fix RF switch with ANT_SW_CTRL and IO47(C15)           *\r\n"
-            "* version:%s(%s-%s)                             *\r\n"
+            "*                      ASR6601 LoRa Test                           *\r\n"
             "* Available commands are:                                          *\r\n"
             "* AT+CTXCW=<freq>,<pwr>[,opt]                                      *\r\n"
             "* AT+CTX=<freq>,<data_rate>,<bandwidth>,<code_rate>,<pwr>[,tx_len] *\r\n"
@@ -70,7 +65,8 @@ int main(void)
             "* AT+CSLEEP=<sleep_mode>                                           *\r\n"
             "* AT+CSTDBY=<standby_mode>                                         *\r\n"
             "********************************************************************\r\n"
-            "*******************************************************************/\r\n",LORA_TEST_FIRMWARE_VERSION,__DATE__,__TIME__);
+            "*******************************************************************/\r\n");
+	
     tc_lora_test();
 }
 

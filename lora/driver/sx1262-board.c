@@ -95,8 +95,10 @@ uint32_t SX126xGetBoardTcxoWakeupTime( void )
 
 void SX126xReset( void )
 {
-    LORAC->CR1 |= 1<<5;  //nreset
-    LORAC->CR1 &= ~(1<<7); //por
+    LORAC->CR1 &= ~(1<<5);  //nreset
+    delay_us(100);
+    LORAC->CR1 |= 1<<5;    //nreset release
+    LORAC->CR1 &= ~(1<<7); //por release
     LORAC->CR0 |= 1<<5; //irq0
     LORAC->CR1 |= 0x1;  //tcxo
     
@@ -114,7 +116,7 @@ void SX126xWakeup( void )
     BoardDisableIrq( );
 
     LORAC->NSS_CR = 0;
-    delay_us(10);
+    delay_us(20);
 
     SpiInOut( RADIO_GET_STATUS );
     SpiInOut( 0x00 );

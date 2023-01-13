@@ -97,7 +97,7 @@ void gpio_init(gpio_t* gpiox, uint8_t gpio_pin, gpio_mode_t mode)
             gpiox->ODR &= ~(1 << gpio_pin);
             gpiox->IER &= ~(1 << gpio_pin);
             gpiox->OER |= (1 << gpio_pin);
-            gpiox->PSR &= ~(1 << gpio_pin);
+            gpiox->PSR |= (1 << gpio_pin);
         } else {
             gpiox->OER &= ~(1 << gpio_pin);
             gpiox->IER &= ~(1 << gpio_pin);
@@ -111,7 +111,7 @@ void gpio_init(gpio_t* gpiox, uint8_t gpio_pin, gpio_mode_t mode)
             gpiox->ODR &= ~(1 << gpio_pin);
             gpiox->IER &= ~(1 << gpio_pin);
             gpiox->OER &= ~(1 << gpio_pin);
-            gpiox->PSR &= ~(1 << gpio_pin);
+            gpiox->PSR |= (1 << gpio_pin);
         } else {
             gpiox->OER &= ~(1 << gpio_pin);
             gpiox->IER &= ~(1 << gpio_pin);
@@ -160,11 +160,35 @@ void gpio_init(gpio_t* gpiox, uint8_t gpio_pin, gpio_mode_t mode)
 void gpio_write(gpio_t* gpiox, uint8_t gpio_pin, gpio_level_t level)
 {
     assert_param(IS_GPIO_PIN(gpiox, gpio_pin));
-
-    if (level != GPIO_LEVEL_LOW)
-        gpiox->BSR |= 1 << gpio_pin;
-    else
-        gpiox->BRR |= 1 << gpio_pin;
+    if (gpiox == GPIOD && gpio_pin > GPIO_PIN_7) {
+	    if (((gpiox->ODR & (1 << gpio_pin)) == 0 ) && ((gpiox->IER & (1 << gpio_pin)) == 0 ) \
+            && ((gpiox->OER & (1 << gpio_pin)) != 0) && ((gpiox->PSR & (1 << gpio_pin)) != 0)) {
+            if (level == GPIO_LEVEL_LOW) {
+                gpiox->ODR &= ~(1 << gpio_pin);
+                gpiox->IER &= ~(1 << gpio_pin);
+                gpiox->OER &= ~(1 << gpio_pin);
+                gpiox->PSR |= (1 << gpio_pin);
+            }
+        } else if (((gpiox->ODR & (1 << gpio_pin)) == 0 ) && ((gpiox->IER & (1 << gpio_pin)) == 0 ) && \
+                   ((gpiox->OER & (1 << gpio_pin)) == 0) && ((gpiox->PSR & (1 << gpio_pin)) != 0)) {
+            if (level != GPIO_LEVEL_LOW) {
+                gpiox->ODR &= ~(1 << gpio_pin);
+                gpiox->IER &= ~(1 << gpio_pin);
+                gpiox->OER |= (1 << gpio_pin);
+                gpiox->PSR |= (1 << gpio_pin);
+            }
+        } else {
+            if (level != GPIO_LEVEL_LOW)
+                gpiox->BSR |= 1 << gpio_pin;
+            else
+                gpiox->BRR |= 1 << gpio_pin;
+        }
+    } else {
+        if (level != GPIO_LEVEL_LOW)
+            gpiox->BSR |= 1 << gpio_pin;
+        else
+            gpiox->BRR |= 1 << gpio_pin;
+    }
 }
 
 /**

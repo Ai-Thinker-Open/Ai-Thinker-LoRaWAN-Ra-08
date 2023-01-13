@@ -2,8 +2,8 @@
  ******************************************************************************
  * @file    tremo_spi.h
  * @author  ASR Tremo Team
- * @version v1.5.0
- * @date    2021-06-23
+ * @version v1.6.2
+ * @date    2022-05-28
  * @brief   Header file of SPI module.
  * @addtogroup Tremo_Drivers
  * @{
@@ -51,6 +51,7 @@ extern "C" {
 #define SSP_INTERRUPT_RX_TIMEOUT      (1 << 1) /*!< RX timeout interrupt*/
 #define SSP_INTERRUPT_RX_FIFO_TRIGGER (1 << 2) /*!< RX fifo trigger interrupt*/
 #define SSP_INTERRUPT_TX_FIFO_TRIGGER (1 << 3) /*!< TX fifo trigger interrupt*/
+#define SSP_INTERRUPT_RX_OVERRUN_AND_TIMEOUT  (0x3)    /*!< RX fifo overrun and RX timeout interrupt*/
 #define SSP_INTERRUPT_ALL             (0xf)    /*!< All interrupt*/
 
 #define SSP_DMA_TX_EN (1 << 1) /*!< TX DMA enable*/
@@ -76,9 +77,7 @@ typedef struct {
  * @param  ssp_interrupt SSP interrupt
  *            @arg SSP_INTERRUPT_RX_FIFO_OVERRUN: RX fifo overrun interrupt
  *            @arg SSP_INTERRUPT_RX_TIMEOUT: RX timeout interrupt
- *            @arg SSP_INTERRUPT_RX_FIFO_TRIGGER: RX fifo trigger interrupt
- *            @arg SSP_INTERRUPT_TX_FIFO_TRIGGER: TX fifo trigger interrupt
- *            @arg SSP_INTERRUPT_ALL: All interrupt
+ *            @arg SSP_INTERRUPT_RX_OVERRUN_AND_TIMEOUT: RX fifo overrun and RX timeout interrupt
  * @return
  */
 __STATIC_INLINE void ssp_clear_interrupt(ssp_typedef_t* SSPx, uint8_t ssp_interrupt)

@@ -78,9 +78,6 @@ void dma0_IRQHandler(void)
         dma_ch = 3;
     }
 
-    if (g_dma_callback_handler[0][dma_ch]) {
-        g_dma_callback_handler[0][dma_ch]();
-    }
     if (dma_ch == 0) {
         /*clear TFR int,channelx*/
         TREMO_REG_WR(DMA_CLEAR_TFR_L_REG(0), 0x1);
@@ -102,6 +99,9 @@ void dma0_IRQHandler(void)
         /*clear block int,channelx*/
         TREMO_REG_WR(DMA_CLEAR_BLOCK_L_REG(0), 0x8);
     }
+    if (g_dma_callback_handler[0][dma_ch]) {
+        g_dma_callback_handler[0][dma_ch]();
+    }
 }
 
 void dma1_IRQHandler(void)
@@ -118,9 +118,6 @@ void dma1_IRQHandler(void)
         dma_ch = 3;
     }
 
-    if (g_dma_callback_handler[1][dma_ch]) {
-        g_dma_callback_handler[1][dma_ch]();
-    }
     if (dma_ch == 0) {
         /*clear TFR int,channelx*/
         TREMO_REG_WR(DMA_CLEAR_TFR_L_REG(1), 0x1);
@@ -141,6 +138,9 @@ void dma1_IRQHandler(void)
         TREMO_REG_WR(DMA_CLEAR_TFR_L_REG(1), 0x8);
         /*clear block int,channelx*/
         TREMO_REG_WR(DMA_CLEAR_BLOCK_L_REG(1), 0x8);
+    }
+    if (g_dma_callback_handler[1][dma_ch]) {
+        g_dma_callback_handler[1][dma_ch]();
     }
 }
 

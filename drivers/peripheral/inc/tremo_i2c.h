@@ -2,8 +2,8 @@
  ******************************************************************************
  * @file    tremo_i2c.h
  * @author  ASR Tremo Team
- * @version v1.5.0
- * @date    2021-06-23
+ * @version v1.6.2
+ * @date    2022-05-28
  * @brief   This file contains all the functions prototypes for the I2C firmware
  *          library.
  * @addtogroup Tremo_Drivers

@@ -120,11 +120,6 @@ void SX126xCheckDeviceReady( void )
         // Switch is turned off when device is in sleep mode and turned on is all other modes
         SX126xAntSwOn( );
     }
-	if(SX126xGetOperatingMode()==MODE_RX){
-		SX126xAntSwOn();
-	}else if(SX126xGetOperatingMode()==MODE_TX){
-		SX126xAntSwOff();
-	}
     SX126xWaitOnBusy( );
 }
 
@@ -154,7 +149,7 @@ void SX126xSendPayload( uint8_t *payload, uint8_t size, uint32_t timeout )
 
 uint8_t SX126xSetSyncWord( uint8_t *syncWord )
 {
-    SX126xWriteRegister(REG_LR_SYNCWORD, *syncWord);
+    SX126xWriteRegisters( REG_LR_SYNCWORDBASEADDRESS, syncWord, 8 );
     return 0;
 }
 

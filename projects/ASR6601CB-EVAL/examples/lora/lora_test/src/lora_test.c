@@ -79,18 +79,8 @@ void OnTxDone(void)
 void OnRxDone(uint8_t* payload, uint16_t size, int16_t rssi, int8_t snr)
 {
     int i = 0;
-	static uint8_t ledStatus=0;
 
     printf("OnRxDone\r\n");
-	if(ledStatus){
-		gpio_init(GPIOA,GPIO_PIN_5, GPIO_MODE_OUTPUT_PP_LOW);
-		gpio_init(GPIOA,GPIO_PIN_6, GPIO_MODE_OUTPUT_PP_HIGH);
-		ledStatus=0;
-	}else{
-		gpio_init(GPIOA,GPIO_PIN_5, GPIO_MODE_OUTPUT_PP_HIGH);
-		gpio_init(GPIOA,GPIO_PIN_6, GPIO_MODE_OUTPUT_PP_LOW);
-		ledStatus=1;
-	}
     if (g_lora_test_rxs) {
         TimerTime_t ts_rxdone_now = TimerGetCurrentTime();
         uint32_t delt_rxdone_ts = 0;
@@ -177,7 +167,6 @@ int test_case_ctxcw(int argc, char* argv[])
 
     SX126xSetPaOpt(opt);
     Radio.Init(&TestRadioEvents);
-	SX126xAntSwOff();	//使用双控的时候 AT+CTXCW 控制另一端
 
     printf("Start to txcw (freq: %lu, power: %udb, opt: %u)\r\n", freq, pwr, opt);
     Radio.SetTxContinuousWave(freq, pwr, 0xffff);

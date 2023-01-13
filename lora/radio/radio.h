@@ -333,13 +333,6 @@ struct Radio_s
      */
     void    ( *ReadBuffer )( uint16_t addr, uint8_t *buffer, uint8_t size );
     /*!
-     * \brief Set synchro word in radio
-     *
-     * \param [IN] data  THe syncword
-     */		
-		void    ( *SetSyncWord )( uint8_t data );
-    
-	/*!
      * \brief Sets the maximum payload length.
      *
      * \param [IN] modem      Radio modem to be used [0: FSK, 1: LoRa]

@@ -16,7 +16,6 @@
 #include "linkwan_ica_at.h"
 #include "lwan_config.h"  
 #include "linkwan.h"
-#include "aithinker_code.h"	//add by specter
 
 #define MAX_BEACON_RETRY_TIMES 2
 #define LORA_KEYS_MAGIC_NUM 0xABABBABA 
@@ -533,7 +532,6 @@ void lora_init(LoRaMainCallback_t *callbacks)
 void lora_fsm( void )
 {
     while (1) {
-		AithinkerEventProcess();	//add by specter
         if (Radio.IrqProcess != NULL) {
             Radio.IrqProcess();
         }
@@ -769,8 +767,7 @@ void lora_fsm( void )
                 break;
             }
             case DEVICE_STATE_SLEEP: {
-                //if( print_isdone( ) ) {
-                if( print_isdone( ) && !g_aithinkerEvent) {	//add by specter
+                if( print_isdone( ) ) {
                     TimerLowPowerHandler( );
                 }
                 break;
