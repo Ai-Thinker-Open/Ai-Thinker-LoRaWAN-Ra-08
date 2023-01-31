@@ -30,7 +30,8 @@ Ra-08(H) 模组出厂内置 AT 固件程序，直接上手使用对接LoRaWAN网
 | Ra-08H   | 支持                |
 # <span id = "compileprepare">4.编译器环境搭建</span>
 ```
-sudo apt-get install gcc-arm-none-eabi git vim python python-pip pip install pyserial configparser 
+sudo apt-get install gcc-arm-none-eabi git vim python python-pip
+pip install pyserial configparser 
 ```
 
 # <span id = "sdkprepare">5.SDK 准备</span> 
