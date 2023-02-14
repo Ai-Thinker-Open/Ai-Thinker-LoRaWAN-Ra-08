@@ -83,7 +83,7 @@ Connect the USB cable to the device and PC, make sure the programming port is co
 
 
 <p align="center">
-  <img src="png\connect.png" width="480px" height="370px" alt="Banner" />
+  <img src="png\connect_en.png" width="480px" height="370px" alt="Banner" />
 </p>
 
 
