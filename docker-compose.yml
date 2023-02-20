@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  ota-bootloader:
+    build:
+      context: ./docker
+    volumes:
+      - ./:/project
+      - ./out:/out
+    working_dir: /project
+    command: /bin/bash -c "cd /project && source build/envsetup.sh && cd projects/ASR6601CB-EVAL/examples/ota/bootloader/ && make && cp out/bootloader.bin /out/"
+
+  lorawan_at:
+    build:
+      context: ./docker
+    volumes:
+      - ./:/project
+      - ./out:/out
+    working_dir: /project
+    command: /bin/bash -c "cd /project && source build/envsetup.sh && cd projects/ASR6601CB-EVAL/examples/lorawan/lorawan_at/ && make && cp out/lorawan_at.bin /out/"
+
+  burn:
+    build:
+      context: ./docker
+    volumes:
+      - ${USB_TTY:-/dev/ttyUSB0}:/dev/ttyUSB0
+      - ./out:/out
+      - ./:/project
+    working_dir: /project
+    command: /bin/bash -c "cd /project && python /project/build/scripts/tremo_loader.py -p /dev/ttyUSB0 -b 921600 flash ${OFFSET:-0x08000000} /out/${BIN:-bootloader.bin}"
