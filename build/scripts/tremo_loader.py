@@ -74,12 +74,12 @@ class TremoLoader(object):
 
     def hw_reset(self, mode=0):
         if mode:
-            self.ser.setDTR(True)  # gpio2 1
+            self.ser.setDTR(False)  # gpio2 1
             self.ser.setRTS(True)  # rst 0
             time.sleep(0.1)
             self.ser.setRTS(False)  # rst 1
             time.sleep(0.1)
-            self.ser.setDTR(False)  # gpio2 0
+            self.ser.setDTR(True)  # gpio2 0
         else:
             self.ser.setRTS(True)
             time.sleep(0.1)
