@@ -13,6 +13,7 @@
 #include "lwan_config.h"
 #include "linkwan.h"
 #include "linkwan_ica_at.h"
+#include "aithinker_code.h"	//add by specter
 
 #define ARGC_LIMIT 16
 #define ATCMD_SIZE (LORAWAN_APP_DATA_BUFF_SIZE * 2 + 18)
@@ -24,6 +25,7 @@
 #define SET_CMD			0x04
 
 uint8_t atcmd[ATCMD_SIZE];
+uint8_t *g_pAtCmd=atcmd;	//add by specter
 uint16_t atcmd_index = 0;
 volatile bool g_atcmd_processing = false;
 uint8_t g_default_key[LORA_KEY_LENGTH] = {0x41, 0x53, 0x52, 0x36, 0x35, 0x30, 0x58, 0x2D, 
@@ -119,6 +121,13 @@ static at_cmd_t g_at_table[] = {
     {LORA_AT_CGBR,  at_cgbr_func},
     {LORA_AT_ILOGLVL,  at_iloglvl_func},
     {LORA_AT_IREBOOT,  at_ireboot_func},
+    //add by specter
+    {LORA_AT_SYSGPIOWRITE,  at_sysGpioWrite_func},
+    {LORA_AT_SYSGPIOREAD,  at_sysGpioRead_func},
+	{LORA_AT_NODEMCUTEST,  at_nodeMcuTest_func},
+	{LORA_AT_LEDTEST,  at_ledTest_func},
+    //add by kiwi
+    {"+TH",  at_TempHumi_func},
 };
 
 #define AT_TABLE_SIZE	(sizeof(g_at_table) / sizeof(at_cmd_t))
@@ -1417,7 +1426,7 @@ static int at_cgmr_func(int opt, int argc, char *argv[])
     
     if(opt == QUERY_CMD) {
         ret = LWAN_SUCCESS;
-        snprintf((char *)atcmd, ATCMD_SIZE, "\r\n%s=%s\r\nOK\r\n", LORA_AT_CGMR, CONFIG_VERSION);
+        snprintf((char *)atcmd, ATCMD_SIZE, "\r\n%s=%s LoRaWAN for %s\r\nOK\r\n",LORA_AT_CGMR,FARMWARE_VERSION,LORAWAN_REGION_STR);
     }
 
     return ret;

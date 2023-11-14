@@ -3036,6 +3036,7 @@ LoRaMacStatus_t LoRaMacInitialization( LoRaMacPrimitives_t *primitives, LoRaMacC
 
     PublicNetwork = true;
     Radio.SetPublicNetwork(true);
+	Radio.Standby(); //这里如果不添加会导致模组在没有入网的时候功耗偏高
     Radio.Sleep( );
 
     // Initialize class b

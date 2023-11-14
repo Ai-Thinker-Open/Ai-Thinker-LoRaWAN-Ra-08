@@ -232,13 +232,41 @@ void BlockLowPowerDuringTask ( bool status )
     LowPowerDisableDuringTask = status;
 }
 
+#include "tremo_gpio.h"
+extern void uart_log_init(uint32_t baudrate);
 void RtcEnterLowPowerStopMode( void )
 {
     if(Radio.GetStatus() != RF_IDLE)
         return;
     
+    
     rtc_check_syn();
+    //adc io
+    gpio_init(GPIOA, GPIO_PIN_4, GPIO_MODE_INPUT_PULL_UP);
+    gpio_set_iomux(GPIOA, GPIO_PIN_4, 0);
+    gpio_init(GPIOA, GPIO_PIN_5, GPIO_MODE_INPUT_PULL_UP);
+    gpio_set_iomux(GPIOA, GPIO_PIN_5, 0);
+    //io wake up
+    // gpio_init(GPIOD, GPIO_PIN_12, GPIO_MODE_INPUT_PULL_UP); 
+    // gpio_config_interrupt(GPIOD, GPIO_PIN_12, GPIO_INTR_FALLING_EDGE);
+    // gpio_config_stop3_wakeup(GPIOD, GPIO_PIN_12, true, GPIO_LEVEL_LOW);
+    // NVIC_EnableIRQ(GPIO_IRQn);
+    // NVIC_SetPriority(GPIO_IRQn, 2);
+
+    
+    // gpio_init(GPIOB,GPIO_PIN_1,GPIO_MODE_INPUT_PULL_UP);
+    // // gpio_write(GPIOB, GPIO_PIN_1, 1);
+    // gpio_set_iomux(GPIOB, GPIO_PIN_1, 0);
+
+    // gpio_init(GPIOD,GPIO_PIN_12,GPIO_MODE_INPUT_PULL_UP);
+    // gpio_write(GPIOD, GPIO_PIN_12, 1);
+    // gpio_set_iomux(GPIOD, GPIO_PIN_12, 0);
     pwr_deepsleep_wfi(PWR_LP_MODE_STOP3);
+    // gpio_set_iomux(GPIOB, GPIO_PIN_1, 1);
+    // gpio_set_iomux(GPIOD, GPIO_PIN_12, 2);
+    // uart_log_init(9600);
+    // NVIC_DisableIRQ(GPIO_IRQn);
+    // printf("wu!!!\r\n");
 }
 
 void RtcRecoverMcuStatus( void )

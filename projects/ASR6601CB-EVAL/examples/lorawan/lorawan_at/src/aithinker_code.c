@@ -32,7 +32,7 @@ void AithinkerPrintInfo(void){
 	printf("\r\n");
 	printf("arch:ASR6601,%02X%02X%02X%02X%02X%02X%02X%02X\r\n",buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6], buf[7]);
 	printf("company:Ai-Thinker|B&T\r\n");
-	printf("sdk_version:release/v1.5.0\r\n");
+	printf("sdk_version:release/v1.6.2\r\n");
 	printf("firmware_version:%s\r\n",FARMWARE_VERSION);
 	printf("compile_time:%s %s\r\n",__DATE__,__TIME__);
 	printf("\r\n");
@@ -319,4 +319,42 @@ int at_ledTest_func(int opt, int argc, char *argv[]){
 	return ret;
 }
 
+extern uint8_t sht3x_ReadTempHumi(int32_t *i32_temp, uint32_t *u32_tempPoint, uint32_t *u32_humi);
+int at_TempHumi_func(int opt, int argc, char *argv[]){
+	int ret = LWAN_ERROR;
+	switch(opt) {
+		case QUERY_CMD: //查询AT?
+			snprintf((char *)g_pAtCmd, ATCMD_SIZE, "\r\n%s:2\r\nERROR\r\n","+TH");
+			AT_PRINTF("%s", g_pAtCmd);
+			break;
+		case EXECUTE_CMD:	//执行指令AT
+			ret = LWAN_SUCCESS;
+			int32_t i32_temp;
+			uint32_t u32_tempPoint;
+			uint32_t u32_humi;
+			sht3x_ReadTempHumi(&i32_temp, &u32_tempPoint, &u32_humi);
+			snprintf((char *)g_pAtCmd, ATCMD_SIZE, "temperature:%d.%02u C, humidity:%u %%\r\nOK\r\n", i32_temp, u32_tempPoint, u32_humi);
+			// AT_PRINTF("%s", g_pAtCmd);
+			// snprintf((char *)g_pAtCmd, ATCMD_SIZE, "\r\nOK\r\n");
+			// AT_PRINTF("\r\nOK\r\n");
+			// if (lwan_data_send(confirm, Nbtrials, payload, bin_len) == LWAN_SUCCESS) {
+			// 	snprintf((char *)atcmd, ATCMD_SIZE, "\r\nOK+SEND:%02X\r\n", bin_len);
+			// }else{
+			// 	snprintf((char *)atcmd, ATCMD_SIZE, "\r\nERR+SEND:00\r\n");
+			// }
+			break;
+		case DESC_CMD:	//帮助信息
+			ret = LWAN_SUCCESS;
+			snprintf((char *)g_pAtCmd, ATCMD_SIZE, "\r\n%s:read temp humi\r\n  eg:AT%s\r\n","+TH","+TH");
+			break;
+		case SET_CMD:
+			snprintf((char *)g_pAtCmd, ATCMD_SIZE, "\r\n%s:2\r\nERROR\r\n","+TH");
+			AT_PRINTF("%s", g_pAtCmd);
+			break;
+		default:
+			break;
+	}
+
+	return ret;
+}
 

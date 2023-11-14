@@ -35,4 +35,6 @@ int at_sysGpioRead_func(int opt, int argc, char *argv[]);
 int at_nodeMcuTest_func(int opt, int argc, char *argv[]);
 int at_ledTest_func(int opt, int argc, char *argv[]);
 
+//add by kiwi
+int at_TempHumi_func(int opt, int argc, char *argv[]);
 #endif	//end of __AITHINKER_CODE_H__

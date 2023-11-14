@@ -1,5 +1,8 @@
 #include "tremo_lpuart.h"
 #include "tremo_it.h"
+#include "tremo_gpio.h"
+#include "stdio.h"
+#include "tremo_uart.h"
 
 extern void RadioOnDioIrq(void);
 extern void RtcOnIrq(void);
@@ -120,6 +123,14 @@ void RTC_IRQHandler(void)
 
 void UART0_IRQHandler(void)
 {
+    printf("$");
+    if(uart_get_interrupt_status(UART0, UART_INTERRUPT_RX_DONE)){
+        uint8_t rx_data_temp = uart_receive_data(UART0);
+        uart_clear_interrupt(UART0, UART_INTERRUPT_RX_DONE);
+#ifdef CONFIG_LWAN_AT
+        linkwan_serial_input(rx_data_temp);
+#endif
+    }
 }
 
 void LPUART_IRQHandler(void)
@@ -151,3 +162,15 @@ void DMA1_IRQHandler(void)
 {
     dma1_IRQHandler();
 }
+
+void GPIO_IRQHandler(void)
+{
+    if (gpio_get_interrupt_status(GPIOA, GPIO_PIN_2) == SET) {
+        gpio_clear_interrupt(GPIOA, GPIO_PIN_2);
+        printf("\r\n##boot\r\n");
+    }
+    if (gpio_get_interrupt_status(GPIOD, GPIO_PIN_12) == SET) {
+        gpio_clear_interrupt(GPIOD, GPIO_PIN_12);
+    }
+}
+

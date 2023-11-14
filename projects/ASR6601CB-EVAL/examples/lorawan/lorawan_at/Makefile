@@ -14,7 +14,7 @@ $(PROJECT)_SOURCE := $(wildcard src/*.c)  \
     $(TREMO_SDK_PATH)/lora/mac/region/Region.c \
     $(TREMO_SDK_PATH)/lora/mac/region/RegionCommon.c \
     $(TREMO_SDK_PATH)/lora/mac/region/RegionCN470.c \
-    $(TREMO_SDK_PATH)/lora/linkwan/linkwan.c \
+    $(TREMO_SDK_PATH)/lora/linkwan/linkwan_AiPi.c \
     $(TREMO_SDK_PATH)/lora/linkwan/linkwan_ica_at.c \
     $(TREMO_SDK_PATH)/lora/linkwan/lwan_config.c
 

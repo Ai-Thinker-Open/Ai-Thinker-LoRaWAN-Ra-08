@@ -14,6 +14,7 @@
 #include "linkwan_ica_at.h"
 #include "linkwan.h"
 #include "lwan_config.h"
+#include "aithinker_code.h"	//add by specter
 
 #define LORAWAN_APP_PORT 100
 
@@ -65,6 +66,25 @@ void uart_log_init(uint32_t baudrate)
     uart_cmd(CONFIG_DEBUG_UART, ENABLE);
 }
 
+void uart0_init(uint32_t baudrate)
+{
+    uart_config_t uart_config;
+
+    // set iomux
+    gpio_set_iomux(GPIOB, GPIO_PIN_0, 1);  // UART_RX:
+    gpio_set_iomux(GPIOB, GPIO_PIN_1, 1);  // UART0_TX:GP17
+    // uart init
+    uart_config_init(&uart_config);
+    uart_config.fifo_mode = ENABLE;
+    uart_config.mode     = UART_MODE_TXRX;
+    uart_config.baudrate = baudrate;
+    uart_init(UART0, &uart_config);
+    uart_config_interrupt(UART0, UART_INTERRUPT_RX_DONE, true);
+    NVIC_SetPriority(UART0_IRQn, 2);
+    NVIC_EnableIRQ(UART0_IRQn);
+
+    uart_cmd(UART0, ENABLE);
+}
 void board_init()
 {
     rcc_enable_oscillator(RCC_OSC_XO32K, true);
@@ -88,6 +108,11 @@ void board_init()
     pwr_xo32k_lpm_cmd(true);
 
     RtcInit();
+
+    //gpio lowpower config
+    gpio_init(GPIOB,GPIO_PIN_1,GPIO_MODE_INPUT_PULL_UP);
+    // gpio_write(GPIOB, GPIO_PIN_1, 1);
+    gpio_set_iomux(GPIOB, GPIO_PIN_1, 0);
 }
 
 void* _sbrk(int nbytes)
@@ -139,6 +164,7 @@ void LoraRxData(lora_AppData_t* AppData)
     LOG_PRINTF(LL_DEBUG, "\r\n");
 }
 
+extern int sht3x_init(void);
 int main(void)
 {
     LWanSysConfig_t default_sys_config = LWAN_SYS_CONFIG_DEFAULT;
@@ -147,15 +173,19 @@ int main(void)
 
     // Target board initialization
     board_init();
+	// AithinkerPrintInfo();	//add by specter
 
     lwan_sys_config_init(&default_sys_config);
     lwan_sys_config_get(SYS_CONFIG_BAUDRATE, &baudrate);
     uart_log_init(baudrate);
+    // uart0_init(baudrate);
+    AithinkerPrintInfo();
 
     lwan_sys_config_get(SYS_CONFIG_LOGLVL, &log_level);
     log_set_level((1<<log_level)-1);
 
     lora_init(&LoRaMainCallbacks);
+    sht3x_init();
     lora_fsm();
 }
 

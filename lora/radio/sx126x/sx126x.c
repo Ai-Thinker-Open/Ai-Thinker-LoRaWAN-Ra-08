@@ -120,6 +120,11 @@ void SX126xCheckDeviceReady( void )
         // Switch is turned off when device is in sleep mode and turned on is all other modes
         SX126xAntSwOn( );
     }
+	if(SX126xGetOperatingMode()==MODE_RX){
+		SX126xAntSwOn();
+	}else if(SX126xGetOperatingMode()==MODE_TX){
+		SX126xAntSwOff();
+	}
     SX126xWaitOnBusy( );
 }
 
