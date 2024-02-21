@@ -397,7 +397,11 @@ static void mlme_indication( MlmeIndication_t *mlmeIndication )
             if ((g_lwan_device_state == DEVICE_STATE_REQ_DEVICE_TIME) || (g_lwan_device_state == DEVICE_STATE_BEACON_ACQUISITION)) {
                 g_lwan_device_state_last = g_lwan_device_state;
             }
+
+#ifndef REGION_US915
             g_lwan_device_state = DEVICE_STATE_SEND_MAC;
+#endif
+
             break;
         }
         case MLME_BEACON_LOST:
