@@ -167,6 +167,7 @@ int test_case_ctxcw(int argc, char* argv[])
 
     SX126xSetPaOpt(opt);
     Radio.Init(&TestRadioEvents);
+    SX126xAntSwOff(); // 使用双控的时候 AT+CTXCW 控制另一端
 
     printf("Start to txcw (freq: %lu, power: %udb, opt: %u)\r\n", freq, pwr, opt);
     Radio.SetTxContinuousWave(freq, pwr, 0xffff);
@@ -322,9 +323,9 @@ int test_case_ctx(int argc, char* argv[])
     TestRadioEvents.RxTimeout = OnRxTimeout;
     TestRadioEvents.RxError   = OnRxError;
     Radio.Init(&TestRadioEvents);
+    SX126xAntSwOff();
 
     size = sprintf(buf, "%lu", g_fcnt_send);
-
     printf("start to tx data(freq: %lu, dr: %u, bw:%d, cr: %d, power: %u): %lu\r\n", g_freq, 12-g_sf, g_bw, g_cr, g_tx_power, g_fcnt_send);
     Radio.SetChannel(g_freq);
     Radio.SetTxConfig( MODEM_LORA, g_tx_power, 0, g_bw,
